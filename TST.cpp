@@ -101,6 +101,7 @@ void TST<T>::display() const {
 template <typename T>
 void TST<T>::displayHelper(Node<T>& node) const {
 	if(node.hasLower && node.hasUpper) {
+		if(node.lower > node.upper) throw std::exception();
 		if(node.left != NULL) displayHelper(*(node.left));
 		cout << node.lower << " ";
 		if(node.center != NULL) displayHelper(*(node.center));
@@ -115,5 +116,7 @@ void TST<T>::displayHelper(Node<T>& node) const {
 		throw std::exception();
 	}
 };
+template <typename T>
+bool TST<T>::find(const T& val) const {
 
-
+}
