@@ -4,8 +4,10 @@ class Node {
 public:
 	//assume that the = operator for T will create a deep copy
 	//T should have a default constructor
-	T* lower;		
-	T* upper;
+	T lower;		
+	T upper;
+	bool hasLower = false;
+	bool hasUpper = false;
 	Node<T>* left;
 	Node<T>* center;
 	Node<T>* right;
@@ -26,6 +28,7 @@ public:
 	void display() const; 
 private:
 	Node<T> * root;	
+	bool insertHelper(Node<T>& node, const T&);
 };
 
 #include "TST.cpp"
