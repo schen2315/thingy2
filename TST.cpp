@@ -92,8 +92,28 @@ bool TST<T>::insertHelper(Node<T>& node, const T& val) {
 }
 template <typename T>
 void TST<T>::display() const {
-
+	if(root != NULL) {
+		displayHelper(*root);
+	} else {
+		cout << "Tree is empty" << endl;
+	}
 }
-
+template <typename T>
+void TST<T>::displayHelper(Node<T>& node) const {
+	if(node.hasLower && node.hasUpper) {
+		if(node.left != NULL) displayHelper(*(node.left));
+		cout << node.lower << " ";
+		if(node.center != NULL) displayHelper(*(node.center));
+		cout << node.upper << " ";
+		if(node.right != NULL) displayHelper(*(node.right));
+	} else if(node.hasLower) {
+		//there should be no center or right trees
+		if(node.center != NULL || node.right != NULL) throw std::exception();
+		if(node.left != NULL) displayHelper(*(node.left));
+		cout << node.lower << " ";
+	} else {
+		throw std::exception();
+	}
+};
 
 

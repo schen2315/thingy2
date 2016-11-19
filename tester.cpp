@@ -1,5 +1,5 @@
 #include "TST.h"
-#define nodes 10
+#define nodes 100
 #define maxInt 100
 using namespace std;
 
@@ -15,5 +15,6 @@ int main() {
 		arr[i] = val;
 		tree.insert(val);
 	}
+	tree.display();
 	return 0;
 }

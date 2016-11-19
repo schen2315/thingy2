@@ -29,6 +29,7 @@ public:
 private:
 	Node<T> * root;	
 	bool insertHelper(Node<T>& node, const T&);
+	void displayHelper(Node<T>& node) const;
 };
 
 #include "TST.cpp"
