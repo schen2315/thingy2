@@ -99,7 +99,7 @@ void TST<T>::display() const {
 	}
 }
 template <typename T>
-void TST<T>::displayHelper(Node<T>& node) const {
+void TST<T>::displayHelper(const Node<T>& node) const {
 	if(node.hasLower && node.hasUpper) {
 		if(node.lower > node.upper) throw std::exception();
 		if(node.left != NULL) displayHelper(*(node.left));
@@ -118,5 +118,43 @@ void TST<T>::displayHelper(Node<T>& node) const {
 };
 template <typename T>
 bool TST<T>::find(const T& val) const {
-
+	if(root != NULL) return findHelper(*root, val);
+	else return false;
 }
+template <typename T>
+bool TST<T>::findHelper(const Node<T>& node, const T& val) const {
+	if(node.hasLower && node.hasUpper) {
+		if(node.lower > node.upper) throw std::exception();
+		if(val < node.lower) {
+			if(node.left != NULL) return findHelper(*(node.left), val);
+			else return false;
+		} else if(val > node.lower && val < node.upper) {
+			if(node.center != NULL) return findHelper(*(node.center), val);
+			else return false;
+		} else if(val > node.upper) {
+			if(node.right != NULL) return findHelper(*(node.right), val);
+			else return false;
+		} else {	//val is equal to either lower or upper
+			return true;
+		}
+	} else if(node.hasLower) {
+		if(val < node.lower) {
+			if(node.left != NULL) return findHelper(*(node.left), val);
+			else return false;
+		} else if(val > node.lower) {
+			return false;
+		} else {	//val is equal to lower
+			return true;
+		}
+	} else {
+		throw std::exception();
+	}
+}
+
+
+
+
+
+
+
+
