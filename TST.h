@@ -1,19 +1,23 @@
-
+#include <iostream>
 template <typename T>
 class Node {
 public:
-	//asume that the = operator for T will create a deep copy
+	//assume that the = operator for T will create a deep copy
+	//T should have a default constructor
 	T* lower;		
 	T* upper;
 	Node<T>* left;
 	Node<T>* center;
 	Node<T>* right;
+	Node();	//empty node
+	Node(const T &val);
+	~Node();
 };
 template <typename T>
 class TST {
 public:
 	TST();		//initialize with empty tree
-	TST(T);		//initialize with root node
+	TST(const T&);		//initialize with root node
 	~TST();		//traverse and call delete on all nodes
 
 	bool insert(const T&);

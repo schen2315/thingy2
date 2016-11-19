@@ -2,3 +2,4 @@ driver
 tester
 tester.o
 driver.o
+tester.dSYM/*
