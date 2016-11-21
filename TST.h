@@ -11,8 +11,10 @@ public:
 	Node<T>* left;
 	Node<T>* center;
 	Node<T>* right;
+	Node<T>* parent;
 	Node();	//empty node
 	Node(const T &val);
+	Node(const T &val, Node<T>* par);
 	~Node();
 };
 template <typename T>
@@ -26,11 +28,15 @@ public:
 	bool remove(const T&);
 	bool find(const T&) const;
 	void display() const; 
-private:
+
+private:	
 	Node<T> * root;	
 	bool insertHelper(Node<T>& node, const T&);
 	void displayHelper(const Node<T>& node) const;
-	bool findHelper(const Node<T>& node, const T&) const;
+	Node<T>* findHelper(Node<T>& node, const T&) const;
+	void removeHelper(Node<T>& node, const T&);
+	Node<T>* findMax(Node<T>& node);
+	Node<T>* findMin(Node<T>& node);
 };
 
 #include "TST.cpp"
