@@ -1,46 +1,87 @@
+#include <vector>
+#include <algorithm>
 #include "TST.h"
-#define nodes 10
-#define maxInt 100
-using namespace std;
 
+#define nodes 10
+using namespace std;
 int main() {
 	srand(time(NULL));
-	Node<int> node1(3);
-	Node<string> node2("string"); 
-	TST<int> tree;
+	//test insert
+		
 	int arr[nodes];
+	int maxVal = 100;
+	//primitive type
+	TST<int> tree1;
 	for(int i=0; i < nodes; i++) {
-		int val = rand()% maxInt;
+		int val = rand() % maxVal;
+		tree1.insert(val);
 		arr[i] = val;
-		tree.insert(val);
-		// tree.insert(i);
 	}
-	// for(int i=0; i < nodes; i++) {
-	// 	tree.insert(i);
-	// }
-	sort(arr, arr+nodes);
-	// for(int i=0; i < nodes; i++) {
-	// 	cout << arr[i] << " ";
-	// }
-	cout << endl;
-	tree.display();
-	cout << endl;
-	// for(int i=0; i < 10; i++) {
-	// 	int val = rand() % maxInt;
-	// 	cout << val << ": " << tree.find(val) << endl;
-	// }
-	//for(int i=0; i < nodes; i++) {
+	sort(arr, arr + nodes);
+
+	//check that arr and tree1.display() match 
+	//inorder traversal of tree1 is same as sorted array
+	//test insert & display
+	cout << "insert & display test" << endl;
+	{
+		for(int i=0; i < nodes; i++) {
+			cout << arr[i] << " ";
+		}
+		cout << endl;
+		tree1.display();
+		cout << endl;
+		//type containing pointers
+		//TST<vector<int>> tree2;
+		//passing a reference to an object on the heap
+
+	}
+	cout << endl << endl;
+	cout << "find test" << endl;
+	//test find 
+	{
+		//find random #s
+		for(int i=0; i < nodes; i++) {
+			cout << arr[i] << " ";
+		}
+		cout << endl;
+		for(int i=0; i < 5; i++) {
+			int val = rand() % maxVal;
+			bool binSearchResults = binary_search(arr, arr + nodes, val);
+			if(binSearchResults) cout << val << ": binary_search -> true ";
+			else cout << val << ": binary_search -> false ";	
+
+			if(tree1.find(val)) cout << "TST find -> true" << endl;
+			else  cout << "TST find -> false" << endl;
+		}
+		cout << endl;
+		
+		for(int i=0; i < 3; i++) {
+			int val = rand() % nodes;
+			bool binSearchResults = binary_search(arr, arr + nodes, arr[val]);
+			if(binSearchResults) cout << arr[val] << ": binary_search -> true ";
+			else cout << arr[val] << ": binary_search -> false ";	
+
+			if(tree1.find(arr[val])) cout << "TST find -> true" << endl;
+			else  cout << "TST find -> false" << endl;
+		}
+	}
+	cout << endl << endl;
+	//test remove
+	
+	cout << "remove test" << endl;
+	{
+		cout << "we should not be able to find any nodes that have been removed" << endl;
+		for(int i=0; i < 3; i++) {
 		int val = rand() % nodes;
-		tree.remove(arr[val]);
-		cout << arr[val] << ": " << tree.find(arr[val]) << endl;
-	//}
-	tree.display();
-	cout << endl;
-	// Node<int>* min = tree.findMin(*(tree.root));
-	// cout << endl;
-	// if(min->hasLower) cout << min->lower << endl;
-	// else cout << "something is wrong ..." << endl;
-	//i may try to implement a LL class that holds stuff on the heap
-	//to test if this class works on deep copies
+		if(tree1.find(arr[val])) cout << arr[val] << ": TST find -> true" << endl;
+		else cout << arr[val] << ": TST find -> false" << endl;
+		cout << "After removing " << arr[val] << ":" << endl;
+		tree1.remove(arr[val]);
+		if(tree1.find(arr[val])) cout << arr[val] << ": TST find -> true" << endl;
+		else cout << arr[val] << ": TST find -> false" << endl;
+		}	
+		tree1.remove(arr[0]);
+	}
+
 	return 0;
 }
