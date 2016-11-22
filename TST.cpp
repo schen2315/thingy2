@@ -265,16 +265,18 @@ void TST<T>::removeHelper(Node<T>& node, const T& val) {
 			}
 			removeHelper(*max, temp);
 		} else {
-			if(node.parent->left == &node) {
-				node.parent->left = NULL;
-				delete &node;
-			} else if(node.parent->center == &node) {
-				node.parent->center = NULL;
-				delete &node;
-			} else if(node.parent->right == &node) {
-				node.parent->right = NULL;
-				delete &node;
-			} else throw std::exception();
+			if (node.parent!=NULL) {
+				if(node.parent->left == &node) {
+					node.parent->left = NULL;
+					delete &node;
+				} else if(node.parent->center == &node) {
+					node.parent->center = NULL;
+					delete &node;
+				} else if(node.parent->right == &node) {
+					node.parent->right = NULL;
+					delete &node;
+				} else throw std::exception();
+			}
 		}
 	} else {
 		throw std::exception();
